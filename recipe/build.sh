@@ -21,7 +21,7 @@ else
 fi
 
 # On Windows we need to regenerate the configure scripts.
-if [ -n "$VS_MAJOR" ] ; then
+if [ -n "$CYGWIN_PREFIX" ] ; then
     am_version=1.15 # keep sync'ed with meta.yaml
     export ACLOCAL=aclocal-$am_version
     export AUTOMAKE=automake-$am_version
@@ -29,7 +29,7 @@ if [ -n "$VS_MAJOR" ] ; then
         --force
         --install
         -I "$mprefix/share/aclocal"
-        -I "$mprefix/mingw-w64/share/aclocal" # note: this is correct for win32 also!
+        -I "$BUILD_PREFIX_M/Library/mingw-w64/share/aclocal"
     )
     autoreconf "${autoreconf_args[@]}"
 
@@ -55,8 +55,10 @@ make check
 rm -rf $uprefix/share/man $uprefix/share/doc/libXaw
 
 # Non-Windows: prefer dynamic libraries to static, and dump libtool helper files
-if [ -z "VS_MAJOR" ] ; then
-    for lib_ident in Xaw ; do
+if [ -z "$CYGWIN_PREFIX" ] ; then
+    # note: the "Xaw" variant is installed weirdly, so don't check for it in
+    # the meta.yaml tests.
+    for lib_ident in Xaw Xaw6 Xaw7 ; do
         rm -f $uprefix/lib/lib${lib_ident}.la $uprefix/lib/lib${lib_ident}.a
     done
 fi
