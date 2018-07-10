@@ -49,15 +49,17 @@ requirements:
 
 test:
   commands:
-    {% set lib_idents = [ "Xaw" ] %}
+    # The library checks here are customized for unusual install results on Windows:
+    {% set lib_idents = [ "Xaw6", "Xaw7" ] %}
     {% for lib_ident in lib_idents %}
     - test -f $PREFIX/lib/lib{{ lib_ident }}.dylib  # [osx]
     - test -f $PREFIX/lib/lib{{ lib_ident }}.so  # [linux]
     - if not exist %PREFIX%/Library/lib/lib{{ lib_ident }}.dll.a exit /b 1  # [win]
     - if not exist %PREFIX%/Library/lib/lib{{ lib_ident }}.a exit /b 1  # [win]
     - if not exist %PREFIX%/Library/lib/lib{{ lib_ident }}.la exit /b 1  # [win]
-    - if not exist %PREFIX%/Library/bin/msys-{{ lib_ident }}-*.dll exit /b 1  # [win]
     {% endfor %}
+    - if not exist %PREFIX%/Library/bin/msys-Xaw-6.dll exit /b 1  # [win]
+    - if not exist %PREFIX%/Library/bin/msys-Xaw-7.dll exit /b 1  # [win]
     - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
     - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 

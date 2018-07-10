@@ -56,7 +56,9 @@ rm -rf $uprefix/share/man $uprefix/share/doc/libXaw
 
 # Non-Windows: prefer dynamic libraries to static, and dump libtool helper files
 if [ -z "$CYGWIN_PREFIX" ] ; then
-    for lib_ident in Xaw ; do
+    # note: the "Xaw" variant is installed weirdly, so don't check for it in
+    # the meta.yaml tests.
+    for lib_ident in Xaw Xaw6 Xaw7 ; do
         rm -f $uprefix/lib/lib${lib_ident}.la $uprefix/lib/lib${lib_ident}.a
     done
 fi
