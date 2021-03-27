@@ -1,8 +1,8 @@
 {% set xorg_name = "libXaw" %}
 {% set xorg_category = "lib" %}
 {% set name = "xorg-" ~ xorg_name %}
-{% set version = "1.0.13" %}
-{% set sha256 = "8ef8067312571292ccc2bbe94c41109dcf022ea5a4ec71656a83d8cce9edb0cd" %}
+{% set version = "1.0.14" %}
+{% set sha256 = "76aef98ea3df92615faec28004b5ce4e5c6855e716fa16de40c32030722a6f8e" %}
 {% set am_version = "1.15" %} # keep synchronized with build.sh
 
 package:
@@ -17,7 +17,7 @@ source:
     - windows.patch  # [win]
 
 build:
-  number: 1002
+  number: 0
   detect_binary_files_with_prefix: true
 
 requirements:
@@ -59,15 +59,13 @@ test:
     {% endfor %}
     - if not exist %PREFIX%/Library/bin/msys-Xaw-6.dll exit /b 1  # [win]
     - if not exist %PREFIX%/Library/bin/msys-Xaw-7.dll exit /b 1  # [win]
-    - conda inspect linkages -p $PREFIX $PKG_NAME  # [not win]
-    - conda inspect objects -p $PREFIX $PKG_NAME  # [osx]
 
 about:
   home: https://www.x.org/
   license: MIT
   license_family: MIT
   license_file: COPYING
-  summary: 'The X.org X11 Athena widgets library.'
+  summary: The X.org X11 Athena widgets library.
 
 extra:
   recipe-maintainers:
