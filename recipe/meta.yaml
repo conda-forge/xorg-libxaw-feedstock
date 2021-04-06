@@ -29,24 +29,27 @@ requirements:
     - pkg-config  # [not win]
     - posix  # [win]
     - make  # [unix]
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}        # [unix]
     - {{ compiler('m2w64_c') }}  # [win]
   host:
     - pthread-stubs
-    - xorg-libx11 1.6.*
+    - xorg-libx11 >=1.6,<2
+    # Additional constraintless xorg-libx11 dep below is for conda-build to add potential pinning to.
+    - xorg-libx11
     - xorg-libxext 1.3.*
     - xorg-libxmu 1.1.*
-    - xorg-libxpm 3.5.*
-    - xorg-libxt 1.1.*
+    - xorg-libxpm >=3.5,<4
+    - xorg-libxt >=1.1,<2
     - xorg-util-macros
     - xorg-xextproto
     - xorg-xproto
   run:
-    - xorg-libx11 1.6.*
+    - {{ pin_compatible('xorg-libx11') }}
     - xorg-libxext 1.3.*
     - xorg-libxmu 1.1.*
-    - xorg-libxpm 3.5.*
-    - xorg-libxt 1.1.*
+    - {{ pin_compatible('xorg-libxpm') }}
+    - {{ pin_compatible('xorg-libxt') }}
 
 test:
   commands:
