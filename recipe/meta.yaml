@@ -1,8 +1,8 @@
 {% set xorg_name = "libXaw" %}
 {% set xorg_category = "lib" %}
 {% set name = "xorg-" ~ xorg_name %}
-{% set version = "1.0.14" %}
-{% set sha256 = "76aef98ea3df92615faec28004b5ce4e5c6855e716fa16de40c32030722a6f8e" %}
+{% set version = "1.0.16" %}
+{% set sha256 = "731d572b54c708f81e197a6afa8016918e2e06dfd3025e066ca642a5b8c39c8f" %}
 {% set am_version = "1.15" %} # keep synchronized with build.sh
 
 package:
@@ -10,14 +10,13 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ xorg_name }}-{{ version }}.tar.bz2
-  url: https://www.x.org/releases/individual/{{ xorg_category }}/{{ xorg_name }}-{{ version }}.tar.bz2
+  url: https://www.x.org/releases/individual/{{ xorg_category }}/{{ xorg_name }}-{{ version }}.tar.xz
   sha256: {{ sha256 }}
   patches:
     - windows.patch  # [win]
 
 build:
-  number: 1
+  number: 0
   detect_binary_files_with_prefix: true
 
 requirements:
